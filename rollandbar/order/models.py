@@ -1,6 +1,8 @@
-from datetime import datetime
+from decimal import Decimal
 
 from django.db import models
+from django.db.models import Q
+from django.utils import timezone
 
 
 class CreatedUpdatedModel(models.Model):
@@ -37,41 +39,43 @@ class Dish(CreatedUpdatedModel):
 
     @property
     def discount(self):
-        current_time = datetime.now()
-        return Discount.objects.where(
-            dish=self,
-            start_time__lte=current_time,
-            deadline__gte=current_time,
-        ).first()
+        current_time = timezone.now()
+        return (
+            Discount
+            .objects
+            .filter(
+                dish=self,
+                start_time__lte=current_time,
+            )
+            .filter(Q(deadline__gte=current_time) | Q(deadline=None))
+            .order_by('deadline')
+            .first()
+        )
 
 
 class Discount(CreatedUpdatedModel):
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
     percent = models.FloatField(null=True, blank=True)
     fix_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    start_time = models.DateTimeField(default=timezone.now)
     deadline = models.DateTimeField(blank=True, null=True)
-    start_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Скидка'
         verbose_name_plural = 'Скидки'
 
     def __str__(self):
-        return f'{self.dish} - {self.deadline}'
+        return f'{self.dish} - {self.start_time}:{self.deadline}'
 
-    # @property
+    @property
     def total_dish_price(self):
         if self.fix_price:
             return self.fix_price
         elif self.percent:
-            return self.dish.price / 100 * self.percent
+            percent = Decimal.from_float(self.percent)
+            return self.dish.price - self.dish.price / 100 * percent
         else:
             ValueError('Discount does have fix_price or percent')
-
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        # TODO проверять что за выбраный период нет скидок
-        pass
 
 
 class Client(CreatedUpdatedModel):
@@ -107,13 +111,8 @@ class Position(CreatedUpdatedModel):
         verbose_name_plural = 'Позиции заказов'
 
     def save(self, *args, **kwargs):
-        discount
-
         if self.discount and (self.discount.fix or self.discount.percent):
-            if self.discount.fix:
-                self.final_price = self.discount.fix
-            else:
-                self.final_price = self.dish.price / 100 * self.discount.percent
+            self.final_price = self.discount.total_dish_price
         else:
             self.final_price = self.dish.price
 
