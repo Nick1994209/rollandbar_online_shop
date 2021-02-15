@@ -27,8 +27,7 @@ class DishSerializer(serializers.HyperlinkedModelSerializer):
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Order
-        fields = ['client', 'name', 'category', 'discount', 'category_id', 'photo', 'price',
-                  'weight', 'ingredients']
+        fields = ['receiving_date']
 
 
 """

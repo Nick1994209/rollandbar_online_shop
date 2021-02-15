@@ -10,6 +10,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'categories', views.CategoryViewSet)
 router.register(r'dishes', views.DishViewSet)
+router.register(r'orders', views.OrderViewSet)
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='core/index.html'), name='index'),

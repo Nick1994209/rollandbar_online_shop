@@ -28,10 +28,8 @@ class OrderViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 #         receiving_date: время привоза заказ
 #         is_delivery: Доставка или самовывоз
 #         positions: [
-#             {
-#                 dish_id,
-#                 discount_id,
-#             },
+#             dish_id,
+#             dish_id,
 #         ]
 #     }
 #
