@@ -1,8 +1,7 @@
-import { createStore } from 'vuex'
-
 const axios = require('axios');
 
-export default createStore({
+export default {
+  namespaced: true,
   state: {
     dishes: [],
   },
@@ -22,4 +21,4 @@ export default createStore({
     },
   },
   modules: {}
-})
+}

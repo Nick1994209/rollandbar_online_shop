@@ -2,11 +2,9 @@
   <div class="about">
     <h1>This is dishes page</h1>
 
-    <div v-for="dish in dishes" :key="dish.id">
-      <p>{{ dish.id }}</p>
-      <p>{{ dish.name }}</p>
-
-      <button @click="addDishToBasket(dish.id)">Добавить в корзину</button>
+    <div class="grid">
+      <ListDishes v-on:chose-dish="chosenDish = $event" v-bind:dishes="dishes"></ListDishes>
+      <Dish v-if="chosenDish" v-bind:dish="chosenDish"></Dish>
     </div>
   </div>
 </template>
@@ -14,18 +12,28 @@
 <script>
 import {mapState} from 'vuex';
 
-export default {
-  computed: mapState({
-    dishes: state => state.dishes,
-  }),
-  methods: {
-    addDishToBasket(dishID) {
-      this.$store.commit('addDishToBasket', dishID);
-    },
-  },
-  beforeCreate() {
-    this.$store.dispatch('getDishes');
-  },
+import ListDishes from '../components/ListDishes.vue'
+import Dish from '../components/Dish.vue'
 
+export default {
+  components: {Dish, ListDishes},
+  data() {
+    return {
+      chosenDish: null,
+    }
+  },
+  computed: mapState({
+    dishes: state => state.dishes.dishes,
+  }),
+  beforeCreate() {
+    this.$store.dispatch('dishes/getDishes');
+  },
 }
 </script>
+
+<style>
+.grid {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+</style>

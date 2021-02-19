@@ -9,12 +9,10 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
-  computed: mapState({
-    numberDishesInBasket: (state) => { state.basket.dishesIDs.length },
-  }),
+  computed: {
+    numberDishesInBasket() { return this.$store.getters['basket/numberDishes'] },
+  },
 }
 </script>
 

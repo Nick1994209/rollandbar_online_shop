@@ -1,7 +1,5 @@
-import {createStore} from "vuex";
-
-
-export default createStore({
+export default {
+  namespaced: true,
   state: {
       dishesIDs: [],
       userInfo: {
@@ -9,11 +7,15 @@ export default createStore({
         phone: null,
       },
   },
-  getters: {},
+  getters: {
+    numberDishes: state => {
+      return state.dishesIDs.length;
+    }
+  },
   mutations: {
-    addDishToBasket (state, dishID) {
+    addDish (state, dishID) {
       state.dishesIDs.push(dishID)
     }
   },
   actions: {},
-})
+}

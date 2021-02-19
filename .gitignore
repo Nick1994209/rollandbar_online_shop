@@ -1,5 +1,6 @@
+rollandbar/media
+rollandbar/static
 db.sqlite3
-static/
 
 .idea
 __pycache__

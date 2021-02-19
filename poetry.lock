@@ -13,10 +13,10 @@ description = "ASGI specs, helper code, and adapters"
 name = "asgiref"
 optional = false
 python-versions = ">=3.5"
-version = "3.2.7"
+version = "3.3.1"
 
 [package.extras]
-tests = ["pytest (>=4.3.0,<4.4.0)", "pytest-asyncio (>=0.10.0,<0.11.0)"]
+tests = ["pytest", "pytest-asyncio"]
 
 [[package]]
 category = "main"
@@ -49,10 +49,10 @@ description = "A high-level Python Web framework that encourages rapid developme
 name = "django"
 optional = false
 python-versions = ">=3.6"
-version = "3.0.5"
+version = "3.1.6"
 
 [package.dependencies]
-asgiref = ">=3.2,<4.0"
+asgiref = ">=3.2.10,<4"
 pytz = "*"
 sqlparse = ">=0.2.2"
 
@@ -456,8 +456,19 @@ optional = false
 python-versions = "*"
 version = "0.1.9"
 
+[[package]]
+category = "main"
+description = "Radically simplified static file serving for WSGI applications"
+name = "whitenoise"
+optional = false
+python-versions = ">=3.5, <4"
+version = "5.2.0"
+
+[package.extras]
+brotli = ["brotli"]
+
 [metadata]
-content-hash = "831b6c6f47f64bbcde5c77715bda4545bed87a0f2d55c081f100d11e17820d1f"
+content-hash = "ae34add07b8e8d93893930fe74f51672aae4a89da4312366d3de824a128177ae"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -466,8 +477,8 @@ appnope = [
     {file = "appnope-0.1.0.tar.gz", hash = "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"},
 ]
 asgiref = [
-    {file = "asgiref-3.2.7-py2.py3-none-any.whl", hash = "sha256:9ca8b952a0a9afa61d30aa6d3d9b570bb3fd6bafcf7ec9e6bed43b936133db1c"},
-    {file = "asgiref-3.2.7.tar.gz", hash = "sha256:8036f90603c54e93521e5777b2b9a39ba1bad05773fcf2d208f0299d1df58ce5"},
+    {file = "asgiref-3.3.1-py3-none-any.whl", hash = "sha256:5ee950735509d04eb673bd7f7120f8fa1c9e2df495394992c73234d526907e17"},
+    {file = "asgiref-3.3.1.tar.gz", hash = "sha256:7162a3cb30ab0609f1a4c95938fd73e8604f63bdba516a7f7d64b83ff09478f0"},
 ]
 backcall = [
     {file = "backcall-0.1.0.tar.gz", hash = "sha256:38ecd85be2c1e78f77fd91700c76e14667dc21e2713b63876c0eb901196e01e4"},
@@ -482,8 +493,8 @@ decorator = [
     {file = "decorator-4.4.2.tar.gz", hash = "sha256:e3a62f0520172440ca0dcc823749319382e377f37f140a0b99ef45fecb84bfe7"},
 ]
 django = [
-    {file = "Django-3.0.5-py3-none-any.whl", hash = "sha256:642d8eceab321ca743ae71e0f985ff8fdca59f07aab3a9fb362c617d23e33a76"},
-    {file = "Django-3.0.5.tar.gz", hash = "sha256:d4666c2edefa38c5ede0ec1655424c56dc47ceb04b6d8d62a7eac09db89545c1"},
+    {file = "Django-3.1.6-py3-none-any.whl", hash = "sha256:169e2e7b4839a7910b393eec127fd7cbae62e80fa55f89c6510426abf673fe5f"},
+    {file = "Django-3.1.6.tar.gz", hash = "sha256:c6c0462b8b361f8691171af1fb87eceb4442da28477e12200c40420176206ba7"},
 ]
 djangorestframework = [
     {file = "djangorestframework-3.11.0-py3-none-any.whl", hash = "sha256:05809fc66e1c997fd9a32ea5730d9f4ba28b109b9da71fccfa5ff241201fd0a4"},
@@ -654,4 +665,8 @@ uritemplate = [
 wcwidth = [
     {file = "wcwidth-0.1.9-py2.py3-none-any.whl", hash = "sha256:cafe2186b3c009a04067022ce1dcd79cb38d8d65ee4f4791b8888d6599d1bbe1"},
     {file = "wcwidth-0.1.9.tar.gz", hash = "sha256:ee73862862a156bf77ff92b09034fc4825dd3af9cf81bc5b360668d425f3c5f1"},
+]
+whitenoise = [
+    {file = "whitenoise-5.2.0-py2.py3-none-any.whl", hash = "sha256:05d00198c777028d72d8b0bbd234db605ef6d60e9410125124002518a48e515d"},
+    {file = "whitenoise-5.2.0.tar.gz", hash = "sha256:05ce0be39ad85740a78750c86a93485c40f08ad8c62a6006de0233765996e5c7"},
 ]
