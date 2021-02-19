@@ -25,7 +25,7 @@ export default {
 <style scoped lang="scss">
 .listDishes {
   overflow: scroll;
-  height: 70%;
+  height: 100%;
 }
 
 .dish {

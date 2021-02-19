@@ -7,7 +7,7 @@
       <img class="photo" v-if="dish.photo" alt="dish" :src="dish.photo">
     </div>
 
-    <button @click="addDishToBasket(dish.id)">Добавить в корзину</button>
+    <button @click="addDishToBasket(dish)">Добавить в корзину</button>
   </div>
 
 </template>
@@ -19,8 +19,8 @@ export default {
     dish: Object,
   },
   methods: {
-    addDishToBasket(dishID) {
-      this.$store.commit('basket/addDish', dishID);
+    addDishToBasket(dish) {
+      this.$store.commit('basket/addDish', dish);
     },
   },
 }

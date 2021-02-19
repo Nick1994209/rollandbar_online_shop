@@ -17,6 +17,8 @@ export default {
           (response) => {
             commit('setDishes', response.data)
           }
+      ).catch(
+        (error) => {alert(`Fail getting dishes error=${error}`)}
       )
     },
   },
