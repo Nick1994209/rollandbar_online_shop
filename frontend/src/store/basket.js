@@ -3,7 +3,7 @@ export default {
   state: {
       chosenDishes: {
         // key: id
-        // value: {dish: dishObject, number: int}
+        // value: {dish: dishObject, amount: int}
       },
       userInfo: {
         name: null,
@@ -11,39 +11,56 @@ export default {
       },
   },
   getters: {
+    getDishAmount: state => {
+      return (dishID) => state.chosenDishes[dishID]?.amount
+    },
+    getDishPrice: state => {
+      return (dishID) => {
+        const dishInfo = state.chosenDishes[dishID]
+        if (dishInfo === null) return null
+
+        return dishInfo.amount * dishInfo.dish.price
+      }
+    },
+    listDishes: state => {
+      return Object.values(state.chosenDishes).map((v) => v.dish);
+    },
     numberDishes: state => {
       return Object.keys(state.chosenDishes).length;
     },
     priceDishes: state => {
-      const reduceFunc = (accumulator, { dish: {price}, number}) => accumulator + price * number
+      const reduceFunc = (accumulator, { dish: {price}, amount}) => accumulator + price * amount
       return Object.values(state.chosenDishes).reduce(reduceFunc, 0);
     },
   },
   mutations: {
     addDish (state, dish) {
       if (dish.id in state.chosenDishes) {
-        state.chosenDishes[dish.id].number += 1
+        state.chosenDishes[dish.id].amount += 1
       } else {
         state.chosenDishes[dish.id] = {
           dish,
-          number: 1,
+          amount: 1,
         }
       }
     },
     deleteDish (state, dish) {
-      state.chosenDishes.push(dish)
+      const dishInfo = state.chosenDishes[dish.id]
+      if (dishInfo === null) return null
+
+      dishInfo.amount -= 1
+      if (dishInfo.amount === 0) {
+        delete state.chosenDishes[dish.id]
+      }
     },
   },
   actions: {},
 }
 
 
-
-const a = {
-  1: {dish: {amount: 100}, number: 2},
-  2: {dish: {amount: 120}, number: 1},
-  3: {dish: {amount: 120}, number: 10},
-}
-
-const reduceFunc = (accumulator, { dish: {amount}, number}) => accumulator + amount * number
-console.log(Object.values(a).reduce(reduceFunc))
+// vue
+// vuex => states {dishes: List, basket: chosenDishes: {id: }}
+// routes =>
+// webpack: сборки => base.js
+// npm: -> node_modules
+//

@@ -3,15 +3,13 @@
     <h1>This is basket page</h1>
 
     <div class="grid">
-      <ListDishes v-on:chose-dish="chosenDish = $event" v-bind:dishes="dishes"></ListDishes>
-      <Dish v-if="chosenDish" v-bind:dish="chosenDish"></Dish>
+      <ListDishes v-on:chose-dish="chosenDish = $event" :dishes="dishes"/>
+      <Dish v-if="chosenDish" :dish="chosenDish"/>
     </div>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex';
-
 import ListDishes from '../components/ListDishes.vue'
 import Dish from '../components/Dish.vue'
 
@@ -22,8 +20,10 @@ export default {
       chosenDish: null,
     }
   },
-  computed: mapState({
-    dishes: state => state.basket.chosenDishes,
-  }),
+  computed: {
+    dishes() {
+      return this.$store.getters['basket/listDishes']
+    },
+  },
 }
 </script>

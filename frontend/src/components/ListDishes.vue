@@ -17,7 +17,10 @@ export default {
     }
   },
   props: {
-    dishes: Array,
+    dishes: {
+      type: Array,
+      required: true,
+    },
   },
 }
 </script>

@@ -15,7 +15,7 @@ const routes = [
     component: Dishes
   },
   {
-    path: '/Basket',
+    path: '/basket',
     name: 'basket',
     component: Basket
   },

@@ -3,8 +3,8 @@
     <h1>This is dishes page</h1>
 
     <div class="grid">
-      <ListDishes v-on:chose-dish="chosenDish = $event" v-bind:dishes="dishes"></ListDishes>
-      <Dish v-if="chosenDish" v-bind:dish="chosenDish"></Dish>
+      <ListDishes v-on:chose-dish="chosenDish = $event" :dishes="dishes"/>
+      <Dish v-if="chosenDish" :dish="chosenDish"/>
     </div>
   </div>
 </template>
