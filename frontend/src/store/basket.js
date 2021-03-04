@@ -19,7 +19,7 @@ export default {
         const dishInfo = state.chosenDishes[dishID]
         if (dishInfo === null) return null
 
-        return dishInfo.amount * dishInfo.dish.price
+        return dishInfo.amount * dishInfo.dish.total_dish_price
       }
     },
     listDishes: state => {
@@ -29,7 +29,9 @@ export default {
       return Object.keys(state.chosenDishes).length;
     },
     priceDishes: state => {
-      const reduceFunc = (accumulator, { dish: {price}, amount}) => accumulator + price * amount
+      const reduceFunc = (
+        accumulator, { dish: {total_dish_price}, amount}
+      ) => accumulator + total_dish_price * amount
       return Object.values(state.chosenDishes).reduce(reduceFunc, 0);
     },
   },
@@ -56,11 +58,3 @@ export default {
   },
   actions: {},
 }
-
-
-// vue
-// vuex => states {dishes: List, basket: chosenDishes: {id: }}
-// routes =>
-// webpack: сборки => base.js
-// npm: -> node_modules
-//

@@ -1,7 +1,8 @@
 <template>
   <div class="dish">
-    <p>{{ dish.name }}</p>
-    <p>{{ dish.price }}</p>
+    <div>{{ dish.name }}</div>
+
+    <DishPrice :dish="dish"/>
 
     <div>
       <img class="photo" v-if="dish.photo" alt="dish" :src="dish.photo">
@@ -9,22 +10,27 @@
 
     <Markdown :text="dish.ingredients"/>
 
-    <div v-if="amountInBasket" class="button">
-      <button @click="deleteDishFromBasket(dish)">-</button>
-      <span>({{ amountInBasket }}) Цена: {{ priceInBasket }}</span>
-      <button @click="addDishToBasket(dish)">+</button>
+    <div v-if="amountInBasket" class="buyButton">
+      <div class="basketButton" @click="deleteDishFromBasket(dish)">-</div>
+      <div class="dishInfoInButton">
+        <div>Количество: {{ amountInBasket }}</div>
+        <div>Цена: {{ priceInBasket }}</div>
+      </div>
+      <div class="basketButton" @click="addDishToBasket(dish)">+</div>
     </div>
-    <button class="button" v-else @click="addDishToBasket(dish)">Добавить в корзину</button>
+    <button class="buyButton basketButton" v-else @click="addDishToBasket(dish)">
+      Добавить в корзину
+    </button>
   </div>
-
 </template>
 
 <script>
 import Markdown from '@/components/Markdown.vue'
+import DishPrice from '@/components/DishPrice.vue'
 
 export default {
   name: 'Dish',
-  components: {Markdown},
+  components: {Markdown, DishPrice},
   props: {
     dish: Object,
   },
@@ -58,11 +64,34 @@ export default {
   height: auto;
 }
 
-.button {
+.buyButton {
   background-color: #42b983;
   color: #e3efd0;
   padding: 12px 28px;
   border-radius: 4px;
-}
-</style>
 
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+}
+
+.basketButton {
+  cursor: pointer;
+  font-size: large;
+
+  &:hover {
+    color: #f1dcaa;
+  }
+}
+
+.dishInfoInButton {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+}
+
+</style>

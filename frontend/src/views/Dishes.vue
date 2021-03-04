@@ -31,9 +31,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
 .grid {
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 40% 60%;
 }
 </style>

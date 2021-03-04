@@ -16,22 +16,16 @@ class DiscountSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class DishSerializer(serializers.HyperlinkedModelSerializer):
-    discount = DiscountSerializer()  # TODO добавить логику получения скидки
+    discount = DiscountSerializer()
+    price = serializers.FloatField()
 
     class Meta:
         model = models.Dish
         fields = ['id', 'name', 'category', 'discount', 'category_id', 'photo', 'price', 'weight',
-                  'ingredients']
+                  'ingredients', 'total_dish_price']
 
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Order
         fields = ['receiving_date']
-
-
-"""
-api/categories
-api/dishes # фильр по категориям
-
-"""

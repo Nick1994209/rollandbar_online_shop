@@ -3,18 +3,23 @@
     <div class="dish" v-on:click="$emit('chose-dish', dish)"
          v-for="dish in dishes" :key="dish.id">
       <p>{{ dish.name }}</p>
-      <p>{{ dish.price }}</p>
+      <DishPrice :dish="dish"/>
     </div>
   </div>
 </template>
 
 <script>
+import DishPrice from './DishPrice.vue'
+
 export default {
   name: 'ListDishes',
   data() {
     return {
       name: 'rollandbar',
     }
+  },
+  components: {
+    DishPrice,
   },
   props: {
     dishes: {

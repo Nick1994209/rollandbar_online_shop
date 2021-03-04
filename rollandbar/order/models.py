@@ -1,4 +1,5 @@
 from decimal import Decimal
+from typing import Optional
 
 from django.db import models
 from django.db.models import Q
@@ -38,7 +39,15 @@ class Dish(CreatedUpdatedModel):
         return self.name
 
     @property
-    def discount(self):
+    def total_dish_price(self) -> Decimal:
+        discount = self.discount
+        if discount is None:
+            return self.price
+
+        return discount.total_dish_price
+
+    @property
+    def discount(self) -> Optional['Discount']:
         current_time = timezone.now()
         return (
             Discount
@@ -68,7 +77,7 @@ class Discount(CreatedUpdatedModel):
         return f'{self.dish} - {self.start_time}:{self.deadline}'
 
     @property
-    def total_dish_price(self):
+    def total_dish_price(self) -> Decimal:
         if self.fix_price:
             return self.fix_price
         elif self.percent:
