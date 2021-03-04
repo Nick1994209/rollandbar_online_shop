@@ -3,8 +3,8 @@
     <h1>This is dishes page</h1>
 
     <div class="grid">
-      <ListDishes v-on:chose-dish="chosenDish = $event" :dishes="dishes"/>
-      <Dish v-if="chosenDish" :dish="chosenDish"/>
+      <ListDishes v-on:chose-dish="chooseDish" :dishes="dishes"/>
+      <router-view/>
     </div>
   </div>
 </template>
@@ -13,13 +13,17 @@
 import {mapState} from 'vuex';
 
 import ListDishes from '../components/ListDishes.vue'
-import Dish from '../components/Dish.vue'
 
 export default {
-  components: {Dish, ListDishes},
+  components: {ListDishes},
   data() {
     return {
       chosenDish: null,
+    }
+  },
+  methods: {
+    chooseDish(dish) {
+      this.$router.push(`/dishes/${dish.id}`)
     }
   },
   computed: mapState({

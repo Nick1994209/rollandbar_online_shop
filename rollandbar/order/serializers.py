@@ -12,7 +12,7 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 class DiscountSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Discount
-        fields = ['id', 'percent', 'fix_price', 'start_time', 'deadline', 'total_dish_price']
+        fields = ['id', 'percent', 'fix_price', 'start_time', 'deadline', 'total_price']
 
 
 class DishSerializer(serializers.HyperlinkedModelSerializer):
@@ -22,7 +22,7 @@ class DishSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Dish
         fields = ['id', 'name', 'category', 'discount', 'category_id', 'photo', 'price', 'weight',
-                  'ingredients', 'total_dish_price']
+                  'ingredients', 'total_price']
 
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):

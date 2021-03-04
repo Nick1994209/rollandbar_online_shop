@@ -39,12 +39,12 @@ class Dish(CreatedUpdatedModel):
         return self.name
 
     @property
-    def total_dish_price(self) -> Decimal:
+    def total_price(self) -> Decimal:
         discount = self.discount
         if discount is None:
             return self.price
 
-        return discount.total_dish_price
+        return discount.total_price
 
     @property
     def discount(self) -> Optional['Discount']:
@@ -77,7 +77,7 @@ class Discount(CreatedUpdatedModel):
         return f'{self.dish} - {self.start_time}:{self.deadline}'
 
     @property
-    def total_dish_price(self) -> Decimal:
+    def total_price(self) -> Decimal:
         if self.fix_price:
             return self.fix_price
         elif self.percent:
@@ -121,7 +121,7 @@ class Position(CreatedUpdatedModel):
 
     def save(self, *args, **kwargs):
         if self.discount and (self.discount.fix or self.discount.percent):
-            self.final_price = self.discount.total_dish_price
+            self.final_price = self.discount.total_price
         else:
             self.final_price = self.dish.price
 

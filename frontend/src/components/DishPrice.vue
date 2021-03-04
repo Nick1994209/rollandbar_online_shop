@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-if="dish.price === dish.total_dish_price">{{ dish.total_dish_price }}</div>
+    <div v-if="dish.price === dish.total_price">{{ dish.total_price }}</div>
     <div v-else>
       <div class="priceWithoutDiscount">{{ dish.price }}</div>
-      <div>{{ dish.total_dish_price }}</div>
+      <div>{{ dish.total_price }}</div>
     </div>
   </div>
 </template>

@@ -19,7 +19,7 @@ export default {
         const dishInfo = state.chosenDishes[dishID]
         if (dishInfo === null) return null
 
-        return dishInfo.amount * dishInfo.dish.total_dish_price
+        return dishInfo.amount * dishInfo.dish.total_price
       }
     },
     listDishes: state => {
@@ -30,8 +30,8 @@ export default {
     },
     priceDishes: state => {
       const reduceFunc = (
-        accumulator, { dish: {total_dish_price}, amount}
-      ) => accumulator + total_dish_price * amount
+        accumulator, { dish: {total_price}, amount}
+      ) => accumulator + total_price * amount
       return Object.values(state.chosenDishes).reduce(reduceFunc, 0);
     },
   },
