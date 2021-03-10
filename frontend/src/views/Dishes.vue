@@ -15,6 +15,7 @@ import {mapState} from 'vuex';
 import ListDishes from '../components/ListDishes.vue'
 
 export default {
+  name: "DishesView",
   components: {ListDishes},
   data() {
     return {
