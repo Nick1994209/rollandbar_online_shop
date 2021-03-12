@@ -1,20 +1,21 @@
 <template>
   <div class="about">
-    <h1>This is basket page</h1>
+    <h1>Выполнить заказ</h1>
 
     <div class="grid">
-      <ListDishes v-on:chose-dish="chosenDish = $event" :dishes="dishes"/>
-      <Dish v-if="chosenDish" :dish="chosenDish"/>
+      <EditUser/>
+      <ListBasketDishes/>
     </div>
   </div>
 </template>
 
 <script>
-import ListDishes from '../components/ListDishes.vue'
-import Dish from '../components/Dish.vue'
+import ListBasketDishes from '../components/ListBasketDishes.vue'
+import EditUser from '../components/EditUser.vue'
 
 export default {
-  components: {Dish, ListDishes},
+  name: "BasketView",
+  components: {ListBasketDishes, EditUser},
   data() {
     return {
       chosenDish: null,

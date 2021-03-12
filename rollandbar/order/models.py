@@ -90,7 +90,6 @@ class Discount(CreatedUpdatedModel):
 class Client(CreatedUpdatedModel):
     name = models.CharField(max_length=256, blank=True)
     phone = models.CharField(max_length=256)
-    address = models.TextField(blank=True)
 
     class Meta:
         verbose_name = 'Пользователь'
@@ -102,7 +101,7 @@ class Order(CreatedUpdatedModel):
     receiving_date = models.DateTimeField(
         help_text='Дата/время получения заказа', blank=True, null=True,
     )
-    is_delivery = models.BooleanField(help_text='Доставка или самовывоз')
+    is_delivery = models.BooleanField(help_text='Доставка или самовывоз', default=False)
 
     class Meta:
         verbose_name = 'Заказ'
@@ -110,7 +109,7 @@ class Order(CreatedUpdatedModel):
 
 
 class Position(CreatedUpdatedModel):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='positions', on_delete=models.CASCADE)
     final_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     dish = models.ForeignKey(Dish, on_delete=models.PROTECT)
     discount = models.ForeignKey(Discount, blank=True, null=True, on_delete=models.PROTECT)
@@ -119,10 +118,6 @@ class Position(CreatedUpdatedModel):
         verbose_name = 'Позиция заказа'
         verbose_name_plural = 'Позиции заказов'
 
-    def save(self, *args, **kwargs):
-        if self.discount and (self.discount.fix or self.discount.percent):
-            self.final_price = self.discount.total_price
-        else:
-            self.final_price = self.dish.price
-
-        return super().save(*args, **kwargs)
+    @classmethod
+    def make(cls, order: Order, dish: Dish):
+        return cls(order=order, dish=dish, final_price=dish.total_price, discount=dish.discount)

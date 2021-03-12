@@ -24,6 +24,11 @@ const routes = [
     name: 'basket',
     component: Basket
   },
+  {
+    path: '/basket',
+    name: 'basket',
+    component: Basket
+  },
 ]
 
 const router = createRouter({

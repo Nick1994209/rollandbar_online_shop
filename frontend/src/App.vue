@@ -2,9 +2,13 @@
   <div id="nav">
     <router-link :to="{ name: 'home'}">Home</router-link> |
     <router-link :to="{ name: 'dishes'}">Блюда</router-link> |
-    <router-link :to="{ name: 'basket'}">Корзина {{ priceDishesInBasket }} [{{ numberDishesInBasket }}]</router-link>
+    <router-link :to="{ name: 'basket'}">Корзина {{ priceDishesInBasket }} [{{ numberDishesInBasket }}]</router-link> |
+    <a>{{ userName }}/</a>
   </div>
-  <router-view/>
+
+  <div class="container">
+    <router-view/>
+  </div>
 </template>
 
 <script>
@@ -12,6 +16,7 @@ export default {
   computed: {
     numberDishesInBasket() { return this.$store.getters['basket/numberDishes'] },
     priceDishesInBasket() { return this.$store.getters['basket/priceDishes'] },
+    userName() { return this.$store.state.user.name },
   },
 }
 </script>

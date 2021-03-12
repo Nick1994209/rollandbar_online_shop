@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is dishes page</h1>
+    <h1>Список блюд</h1>
 
     <div class="grid">
       <ListDishes v-on:chose-dish="chooseDish" :dishes="dishes"/>

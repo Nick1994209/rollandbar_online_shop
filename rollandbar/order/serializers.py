@@ -25,7 +25,30 @@ class DishSerializer(serializers.HyperlinkedModelSerializer):
                   'ingredients', 'total_price']
 
 
+class ClientSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = models.Client
+        fields = ('name', 'phone')
+
+
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
+    client = ClientSerializer()
+    dishes = serializers.PrimaryKeyRelatedField(
+        write_only=True,
+        many=True, required=True, queryset=models.Dish.objects.all(),
+    )
+
     class Meta:
         model = models.Order
-        fields = ['receiving_date']
+        fields = ['id', 'dishes', 'client']
+
+    def create(self, validated_data):
+        dishes = validated_data.pop('dishes')
+        client = models.Client.objects.create(**validated_data.pop('client'))
+        order = models.Order.objects.create(**validated_data, client=client)
+
+        models.Position.objects.bulk_create(
+            [models.Position.make(order, dish) for dish in dishes],
+        )
+        return order

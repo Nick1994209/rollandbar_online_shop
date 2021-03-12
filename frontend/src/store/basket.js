@@ -1,14 +1,10 @@
 export default {
   namespaced: true,
   state: {
-      chosenDishes: {
-        // key: id
-        // value: {dish: dishObject, amount: int}
-      },
-      userInfo: {
-        name: null,
-        phone: null,
-      },
+    chosenDishes: {
+      // key: id
+      // value: {dish: dishObject, amount: int}
+    },
   },
   getters: {
     getDishAmount: state => {
@@ -25,18 +21,27 @@ export default {
     listDishes: state => {
       return Object.values(state.chosenDishes).map((v) => v.dish);
     },
+    listDishesIDs: state => {
+      const getDishIDs = (dishInfo) => {
+        return Array.from({length: dishInfo.amount}, () => dishInfo.dish.id)
+      }
+
+      return Object.values(state.chosenDishes).map(
+        (dishInfo) => getDishIDs(dishInfo)
+      ).flat()
+    },
     numberDishes: state => {
       return Object.keys(state.chosenDishes).length;
     },
     priceDishes: state => {
       const reduceFunc = (
-        accumulator, { dish: {total_price}, amount}
+        accumulator, {dish: {total_price}, amount}
       ) => accumulator + total_price * amount
       return Object.values(state.chosenDishes).reduce(reduceFunc, 0);
     },
   },
   mutations: {
-    addDish (state, dish) {
+    addDish(state, dish) {
       if (dish.id in state.chosenDishes) {
         state.chosenDishes[dish.id].amount += 1
       } else {
@@ -46,7 +51,7 @@ export default {
         }
       }
     },
-    deleteDish (state, dish) {
+    deleteDish(state, dish) {
       const dishInfo = state.chosenDishes[dish.id]
       if (dishInfo === null) return null
 
