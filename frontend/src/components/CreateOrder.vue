@@ -1,7 +1,10 @@
 <template>
   <div>
-    <Form :validation-schema="schema" @submit="onSubmit" :initial-values="initialFormValues">
-      <Field placeholder="Имя:" name="name" class="input"/>
+    <Form class="box"
+          :validation-schema="schema"
+          @submit="onSubmit"
+          :initial-values="initialFormValues">
+      <Field placeholder="Имя:" name="name" class="input field"/>
       <ErrorMessage name="name" as="div"/>
 
       <Field placeholder="Телефон:" name="phone" class="input"/>
@@ -21,7 +24,7 @@
         </div>
       </div>
 
-      <button>Выполнить заказ</button>
+      <button class="button">Выполнить заказ</button>
     </Form>
 
     <div></div>

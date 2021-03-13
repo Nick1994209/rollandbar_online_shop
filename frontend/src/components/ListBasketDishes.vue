@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="dish in dishes" :key="dish.id">
+    <div class="box" v-for="dish in dishes" :key="dish.id">
       <div>{{ dish.name }}</div>
     </div>
   </div>

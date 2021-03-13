@@ -1,6 +1,6 @@
 <template>
   <div class="listDishes">
-    <div class="dish" v-on:click="$emit('chose-dish', dish)"
+    <div class="dish block" v-on:click="$emit('chose-dish', dish)"
          v-for="dish in dishes" :key="dish.id">
       <p>{{ dish.name }}</p>
       <DishPrice :dish="dish"/>

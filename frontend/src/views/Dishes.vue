@@ -2,9 +2,13 @@
   <div class="about">
     <h1>Список блюд</h1>
 
-    <div class="grid">
-      <ListDishes v-on:chose-dish="chooseDish" :dishes="dishes"/>
-      <router-view/>
+    <div class="columns">
+
+      <ListDishes class="column is-two-fifths" v-on:chose-dish="chooseDish" :dishes="dishes"/>
+      <div class="column">
+        <router-view class="column"/>
+      </div>
+
     </div>
   </div>
 </template>
@@ -35,10 +39,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
-.grid {
-  display: grid;
-  grid-template-columns: 40% 60%;
-}
-</style>
