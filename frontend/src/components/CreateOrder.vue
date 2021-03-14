@@ -1,79 +1,71 @@
 <template>
   <div>
-    <Form class="box"
-          :validation-schema="schema"
-          @submit="onSubmit"
-          :initial-values="initialFormValues">
-      <Field placeholder="Имя:" name="name" class="input field"/>
-      <ErrorMessage name="name" as="div"/>
+    <div class="text-primary is-size-5 has-text-weight-semibold">Создание заказа</div>
 
-      <Field placeholder="Телефон:" name="phone" class="input"/>
-      <ErrorMessage name="phone" as="div"/>
+    <div>
+      {{ name }} {{ phone }}
+    </div>
 
+    <div class="box mb-4">
       <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="e.g Alex Smith">
-        </div>
+        <label class="label">
+          Имя
+          <input v-model="name" class="input">
+        </label>
       </div>
 
       <div class="field">
-        <label class="label">Email</label>
-        <div class="control">
-          <input class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
-        </div>
+        <label class="label">
+          Телефон
+          <input v-model="phone" class="field input">
+        </label>
       </div>
 
-      <button class="button">Выполнить заказ</button>
-    </Form>
-
-    <div></div>
+      <div class="field is-horizontal">
+        <button :disabled="!isDataEmpty" class="button" v-on:click="createOrder">
+          Сделать заказ
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import {Field, Form, ErrorMessage, configure} from 'vee-validate';
-import * as yup from 'yup';
-
-const axios = require('axios');
-
-configure({
-  validateOnChange: true,
-  validateOnInput: true,
-});
+import axios from 'axios';
 
 export default {
-  name: 'EditUser',
-  components: {
-    Field,
-    Form,
-    ErrorMessage,
-  },
   data() {
     return {
-      schema: yup.object({
-        name: yup.string().required('Обязательно').min(3).label('Name'),
-        phone: yup.number().required().min(8).label('Phone'),
-      }),
-      initialFormValues: {
-        name: this.$store.state.user.name,
-        phone: this.$store.state.user.phone,
-      }
+      'name': '',
+      'phone': '',
+    }
+  },
+  computed: {
+    isDataEmpty() {
+      return Boolean(this.phone) && Boolean(this.name)
     }
   },
   methods: {
-    onSubmit(values) {
-      this.$store.commit('user/setUserInfo', values);
+    createOrder() {
+      const payload = {
+        "dishes": this.$store.getters['basket/listDishesIDs'],
+        "client": {
+          "name": this.name,
+          "phone": this.phone,
+        }
+      }
 
-      axios.post('http://127.0.0.1:8000/', {
-        client: values,
-        dishes: this.$store.getters['basket/listDishesIDs'],
-      }).then((response) => {
-        console.log(response);
-      }, (error) => {
-        console.log(error);
-      });
+      axios.post('http://localhost:8000/api/v1/orders/', payload).then(
+          (response) => {
+            alert(response.data.id)
+          }
+      ).catch(
+          (error) => {
+            alert(error)
+          }
+      )
     },
-  },
+  }
 }
+
 </script>

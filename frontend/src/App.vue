@@ -1,9 +1,8 @@
 <template>
   <div id="nav">
-    <router-link :to="{ name: 'home'}">Home</router-link> |
+    <router-link :to="{ name: 'home'}">Главная</router-link> |
     <router-link :to="{ name: 'dishes'}">Блюда</router-link> |
     <router-link :to="{ name: 'basket'}">Корзина {{ priceDishesInBasket }} [{{ numberDishesInBasket }}]</router-link> |
-    <a>{{ userName }}/</a>
   </div>
 
   <div class="container">

@@ -10,7 +10,7 @@
 
     <Markdown :text="dish.ingredients"/>
 
-    <div v-if="amountInBasket" class="button buyButton basketButton is-success is-large">
+    <div v-if="amountInBasket" class="button buyButton basketButton is-large">
       <div class="basketButton" @click="deleteDishFromBasket(dish)">-</div>
       <div class="dishInfoInButton">
         <div>Количество: {{ amountInBasket }}</div>
@@ -18,7 +18,7 @@
       </div>
       <div class="basketButton" @click="addDishToBasket(dish)">+</div>
     </div>
-    <button class="buyButton basketButton button is-success is-large" v-else @click="addDishToBasket(dish)">
+    <button class="buyButton basketButton button is-large" v-else @click="addDishToBasket(dish)">
       Добавить в корзину
     </button>
   </div>
@@ -82,10 +82,6 @@ export default {
 .basketButton {
   cursor: pointer;
   font-size: large;
-
-  &:hover {
-    color: #f1dcaa;
-  }
 }
 
 .dishInfoInButton {
