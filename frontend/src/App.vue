@@ -2,7 +2,8 @@
   <div id="nav">
     <router-link :to="{ name: 'home'}">Главная</router-link> |
     <router-link :to="{ name: 'dishes'}">Блюда</router-link> |
-    Корзина {{ priceDishesInBasket }} [{{ numberDishesInBasket }}] |
+    <router-link :to="{ name: 'basket'}">Корзина</router-link>
+    {{ priceDishesInBasket }} [{{ numberDishesInBasket }}] |
   </div>
 
   <div class="container">
